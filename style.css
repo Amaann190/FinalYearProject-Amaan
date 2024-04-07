@@ -73,3 +73,48 @@ body {
     margin-left: 20px;
     color: darkgray;
 }
+
+/* Add styles for the favorite button */
+.favorite-button {
+    background-color: #f4c518;
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 10px 10px ;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.favorite-button:hover {
+    background-color: #d3ac16;
+}
+
+x#search-bar .favorite-button {
+    margin-right: 10px;
+}
+
+/* Adjust grid layout for the favorites page */
+#favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    max-width: 1200px; /* Limiting max-width to prevent excessive zooming */
+    margin: -1 auto; /* Centering the grid */
+}
+#favorites-grid .movie-card {
+    width: 200px; /* Adjust width of movie cards */
+    text-align: center; /* Center the content */
+}
+
+#favorites-grid .movie-card img {
+    max-width: 100%;
+    max-height: 300px; /* Limit the height of movie posters */
+}
+
+#FavoriteMovies {
+    margin-left: 0vw;
+    color: #f4c518;
+    font-family:Arial, Helvetica, sans-serif;
+}
+

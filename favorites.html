@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Movies</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <h1 id="FavoriteMovies">Favorite Movies</h1>
+    <div id="favorites-grid"></div>
+
+    <script>
+        const apiBaseUrl = "https://api.themoviedb.org/3";
+        const apiKey = "0cbba2de0cef4797f5b50b633a405395";
+        const imageBaseUrl = 'https://image.tmdb.org/t/p/w300';
+        
+        async function fetchFavoriteMovies() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const favoriteMoviesContainer = document.getElementById('favorites-grid');
+
+            for (const movieId of favorites) {
+                const response = await fetch(`${apiBaseUrl}/movie/${movieId}?api_key=${apiKey}`);
+                const movieDetails = await response.json();
+
+                const movieCard = document.createElement('div');
+                movieCard.classList.add('movie-card');
+                movieCard.innerHTML = `
+                    <div>
+                        <a href="movie-details.html?id=${movieDetails.id}">
+                            <img src="${imageBaseUrl}${movieDetails.poster_path}"/>
+                            <p>⭐ ${movieDetails.vote_average}</p>
+                            <h1>${movieDetails.title}</h1>
+                        </a>
+                        <button onclick="removeFromFavorites('${movieDetails.id}')">Remove</button>
+                    </div>
+                `;
+                favoriteMoviesContainer.appendChild(movieCard);
+            }
+        }
+
+        function removeFromFavorites(movieId) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            favorites = favorites.filter(id => id !== movieId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            location.reload(); // Refresh the page to reflect the updated favorites
+        }
+        
+        fetchFavoriteMovies();
+    </script>
+</body>
+</html>

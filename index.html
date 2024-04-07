@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>IMDb Clone</title>
+    <title>MovieDataBase</title>
 </head>
 <body>
     <div id="search-bar">
-        <h1>IMDb</h1>
+        <h1>MDB</h1>
         <form id="search-form">
             <input type="text" id="search-input" placeholder="Search IMDB">
         </form>
+        <button class="favorite-button" onclick="redirectToFavorites()">Favorites</button>
+
     </div>
     <div>
         <h1 id="category-title">Now Playing Movies</h1>

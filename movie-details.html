@@ -68,11 +68,34 @@
             const movieDetails = await response.json();
             displayMovieDetails(movieDetails);
         }
+        function addToFavorites() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const movieId = urlParams.get('id');
+
+                if (movieId) {
+                    let favorites = localStorage.getItem('favorites');
+                    if (!favorites) {
+                        favorites = [];
+                    } else {
+                        favorites = JSON.parse(favorites);
+                    }
+                    if (!favorites.includes(movieId)) {
+                        favorites.push(movieId);
+                        localStorage.setItem('favorites', JSON.stringify(favorites));
+                        alert('Movie added to favorites!');
+                    } else {
+                        alert('Movie already in favorites!');
+                    }
+                } else {
+                    alert('Invalid movie!');
+                }
+            }
+
     
         function displayMovieDetails(movieDetails) {
             const movieDetailsContainer = document.querySelector('.movie-details');
             const { title, poster_path, release_date, vote_average, vote_count, popularity, overview, credits, original_language, revenue, budget, runtime, genres, production_companies, production_countries, tagline, status, certification, homepage } = movieDetails;
-    
+            
             movieDetailsContainer.innerHTML = `
                 <img src="https://image.tmdb.org/t/p/w300${poster_path}" class="movie-poster">
                 <div class="movie-info">
@@ -109,7 +132,11 @@
                     </ul>
                     <h2>Where to Watch:</h2>
                     <p>Currently not available</p>
+                    <!-- After displaying movie details -->
+                    <button id="add-to-favorites" onclick="addToFavorites()">Add to Favorites</button>
+
                 </div>
+                
             `;
         }
     

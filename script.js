@@ -43,6 +43,10 @@ function handleSearchFormSubmit(event) {
 function showMovieDetails(movieId) {
     window.location.href = `movie-details.html?id=${movieId}`;
 }
+function redirectToFavorites() {
+    window.location.href = 'favorites.html';
+}
+
 
 searchForm.addEventListener("submit", handleSearchFormSubmit);
 fetchMoviesNowPlaying();
