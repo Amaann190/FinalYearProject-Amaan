@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .movie-details {
+            display: flex;
+            align-items: flex-start;
+        }
+        .movie-poster {
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .movie-info {
+            flex-grow: 1;
+        }
+        .movie-info p {
+            margin: 5px 0;
+            font-family: Arial, sans-serif;
+        }
+        .movie-info h2 {
+            margin: 10px 0;
+            font-family: Arial, sans-serif;
+        }
+        .movie-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        .movie-info ul li {
+            margin-bottom: 5px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Details</h1>
+        <div class="movie-details"></div>
+    </div>
+
+    <script>
+        const apiBaseUrl = "https://api.themoviedb.org/3";
+        const apiKey = "0cbba2de0cef4797f5b50b633a405395";
+
+        async function fetchMovieDetails(movieId) {
+            const response = await fetch(`${apiBaseUrl}/movie/${movieId}?api_key=${apiKey}&append_to_response=credits`);
+            const movieDetails = await response.json();
+            displayMovieDetails(movieDetails);
+        }
+
+        function displayMovieDetails(movieDetails) {
+            const movieDetailsContainer = document.querySelector('.movie-details');
+            const { title, poster_path, release_date, vote_average, overview, credits, original_language } = movieDetails;
+
+            movieDetailsContainer.innerHTML = `
+                <img src="https://image.tmdb.org/t/p/w300${poster_path}" class="movie-poster">
+                <div class="movie-info">
+                    <p><strong>Title:</strong> ${title}</p>
+                    <p><strong>Release Date:</strong> ${release_date}</p>
+                    <p><strong>Rating:</strong> ${vote_average}</p>
+                    <p><strong>Language:</strong> ${original_language}</p>
+                    <p><strong>Overview:</strong> ${overview}</p>
+                    <h2>Cast:</h2>
+                    <ul>
+                        ${credits.cast.slice(0, 5).map(actor => `<li>${actor.name}</li>`).join('')}
+                    </ul>
+                    <h2>Writers:</h2>
+                    <ul>
+                        ${credits.crew.filter(crewMember => crewMember.job === "Screenplay").slice(0, 3).map(writer => `<li>${writer.name}</li>`).join('')}
+                    </ul>
+                    <h2>Where to Watch:</h2>
+                    <p>Currently not available</p>
+                </div>
+            `;
+        }
+
+        // Get the movieId from the URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get('id');
+
+        if (movieId) {
+            fetchMovieDetails(movieId);
+        } else {
+            // Redirect to homepage if movieId is not provided
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
