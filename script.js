@@ -31,6 +31,7 @@ function displayMovies(movies) {
     ).join("");
 }
 
+
 function handleSearchFormSubmit(event) {
     catergorytilte.innerHTML = "Search-Results";
     event.preventDefault();
@@ -45,33 +46,3 @@ function showMovieDetails(movieId) {
 
 searchForm.addEventListener("submit", handleSearchFormSubmit);
 fetchMoviesNowPlaying();
-
-const favoriteMoviesContainer = document.getElementById("favorite-movies");
-const favorites = [];
-
-// Function to add a movie to favorites
-function addToFavorites(movie) {
-    favorites.push(movie);
-    displayFavoriteMovies();
-}
-
-// Function to display favorite movies
-function displayFavoriteMovies() {
-    favoriteMoviesContainer.innerHTML = favorites.map(movie => 
-        `<div class="favorite-movie">
-            <img src="${imageBaseUrl}${movie.poster_path}"/>
-            <p>${movie.title}</p>
-        </div>`
-    ).join("");
-}
-
-// Function to handle adding a movie to favorites
-function handleAddToFavorites(event) {
-    const movie = event.target.dataset.movie;
-    if (movie) {
-        addToFavorites(JSON.parse(movie));
-    }
-}
-
-// Event listener to handle adding a movie to favorites
-moviesGrid.addEventListener("click", handleAddToFavorites);
