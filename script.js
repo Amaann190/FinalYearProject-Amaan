@@ -72,3 +72,5 @@ function redirectToFavorites() {
 searchForm.addEventListener("submit", handleSearchFormSubmit);
 fetchMoviesNowPlaying();
 fetchTrendingTVShows(); 
+
+
