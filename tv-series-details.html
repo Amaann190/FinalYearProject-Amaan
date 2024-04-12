@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Series Details</title>
+    <style>
+        body {
+            font-family: "Source Sans Pro", Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .series-details {
+            display: flex;
+            align-items: flex-start;
+        }
+        .series-poster {
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .series-info {
+            flex-grow: 1;
+        }
+        .series-info p {
+            margin: 5px 0;
+        }
+        .series-info h2 {
+            margin: 10px 0;
+        }
+        .series-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        .series-info ul li {
+            margin-bottom: 5px;
+        }
+        #add-to-favorites {
+            background-color: #000000;
+            border: none;
+            color: #f4c518;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #add-to-favorites:hover {
+            background-color: #1a1a1a;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>TV Series Details</h1>
+        <div class="series-details"></div>
+    </div>
+    
+    <script>
+        const apiBaseUrl = "https://api.themoviedb.org/3";
+        const apiKey = "0cbba2de0cef4797f5b50b633a405395";
+    
+        async function fetchSeriesDetails(seriesId) {
+            const response = await fetch(`${apiBaseUrl}/tv/${seriesId}?api_key=${apiKey}&append_to_response=credits`);
+            const seriesDetails = await response.json();
+            displaySeriesDetails(seriesDetails);
+        }
+
+        function addToFavorites() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const seriesId = urlParams.get('id');
+
+            if (seriesId) {
+                let favorites = localStorage.getItem('favorites');
+                if (!favorites) {
+                    favorites = [];
+                } else {
+                    favorites = JSON.parse(favorites);
+                }
+                if (!favorites.includes(seriesId)) {
+                    favorites.push(seriesId);
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    alert('TV series added to favorites!');
+                } else {
+                    alert('TV series already in favorites!');
+                }
+            } else {
+                alert('Invalid TV series!');
+            }
+        }
+    
+        function displaySeriesDetails(seriesDetails) {
+            const seriesDetailsContainer = document.querySelector('.series-details');
+            const { name, poster_path, first_air_date, vote_average, vote_count, popularity, overview, credits, original_language, number_of_episodes, number_of_seasons, genres, production_companies, production_countries, status, homepage } = seriesDetails;
+            
+            seriesDetailsContainer.innerHTML = `
+                <img src="https://image.tmdb.org/t/p/w300${poster_path}" class="series-poster">
+                <div class="series-info">
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>First Air Date:</strong> ${first_air_date}</p>
+                    <p><strong>Rating:</strong> ${vote_average}</p>
+                    <p><strong>Votes:</strong> ${vote_count}</p>
+                    <p><strong>Popularity:</strong> ${popularity}</p>
+                    <p><strong>Language:</strong> ${original_language}</p>
+                    <p><strong>Overview:</strong> ${overview}</p>
+                    <p><strong>Number of Seasons:</strong> ${number_of_seasons}</p>
+                    <p><strong>Number of Episodes:</strong> ${number_of_episodes}</p>
+                    <p><strong>Genres:</strong> ${genres.map(genre => genre.name).join(', ')}</p>
+                    <p><strong>Production Companies:</strong> ${production_companies.map(company => company.name).join(', ')}</p>
+                    <p><strong>Production Countries:</strong> ${production_countries.map(country => country.name).join(', ')}</p>
+                    <p><strong>Status:</strong> ${status}</p>
+                    <p><strong>Homepage:</strong> <a href="${homepage}" target="_blank">${homepage}</a></p>
+                    <h2>Cast:</h2>
+                    <ul>
+                        ${credits.cast.slice(0, 5).map(actor => `<li>${actor.name}</li>`).join('')}
+                    </ul>
+                    <h2>Directors:</h2>
+                    <ul>
+                        ${credits.crew.filter(crewMember => crewMember.job === "Director").map(director => `<li>${director.name}</li>`).join('')}
+                    </ul>
+                    <h2>Producers:</h2>
+                    <ul>
+                        ${credits.crew.filter(crewMember => crewMember.job === "Producer").map(producer => `<li>${producer.name}</li>`).join('')}
+                    </ul>
+                    <h2>Writers:</h2>
+                    <ul>
+                        ${credits.crew.filter(crewMember => crewMember.job === "Screenplay").slice(0, 3).map(writer => `<li>${writer.name}</li>`).join('')}
+                    </ul>
+                    <h2>Where to Watch:</h2>
+                    <p>Currently not available</p>
+                    <!-- After displaying TV series details -->
+                    <button id="add-to-favorites" onclick="addToFavorites()">Add to Favorites</button>
+                </div>
+            `;
+        }
+    
+        // Get the seriesId from the URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const seriesId = urlParams.get('id');
+    
+        if (seriesId) {
+            fetchSeriesDetails(seriesId);
+        } else {
+            // Redirect to homepage if seriesId is not provided
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

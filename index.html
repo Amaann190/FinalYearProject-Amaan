@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>MovieDataBase</title>
+    <meta charset="UTF-8"> <!-- Declares the character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Sets the viewport to the device's width and initial zoom level -->
+    <link rel="stylesheet" href="style.css"> <!-- Links an external CSS file for styling -->
+    <title>MovieDataBase</title> <!-- Sets the title of the HTML document -->
 </head>
 <body>
-    <div id="search-bar">
-        <h1>MDB</h1>
-        <form id="search-form">
-            <input type="text" id="search-input" placeholder="Search IMDB">
+    <div id="search-bar"> <!-- Defines a container for the search bar -->
+        <h1>MDB</h1> <!-- Displays the title/logo -->
+        <form id="search-form"> <!-- Defines a form for search functionality -->
+            <input type="text" id="search-input" placeholder="Search MovieDataBase"> <!-- Provides an input field for searching -->
         </form>
-        <button class="favorite-button" onclick="redirectToFavorites()">Favorites</button>
+        <button class="favorite-button" onclick="redirectToFavorites()" style="margin-left: 10px";> Favorites </button> <!-- Button to redirect to favorites page -->
     </div>
     <div>
-        <h1 id="category-title">Now Playing Movies</h1>
+        <h1 id="category-title">Trending Movies</h1> <!-- Displays a title for the movie category -->
     </div>
-     <div id="movies-grid"></div>
-    <div id="footer">
-        <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+     <div id="movies-grid"></div> <!-- Defines a container for displaying movie grid -->
+     <div>
+        <h1 id="tv-category-title">Trending TV Shows and Anime</h1>
     </div>
-    <script src="script.js"></script>
+     <div id="tv-series-grid"></div>
+     <div id="footer">
+        <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p> <!-- Footer text -->
+    </div>
+    <script src="script.js"></script> <!-- Links an external JavaScript file -->
 </body>
 </html>

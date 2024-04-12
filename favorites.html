@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favorite Movies</title>
     <link rel="stylesheet" href="style.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1 id="FavoriteMovies">Favorite Movies</h1>
@@ -33,7 +33,7 @@
                             <p>⭐ ${movieDetails.vote_average}</p>
                             <h1>${movieDetails.title}</h1>
                         </a>
-                        <button onclick="removeFromFavorites('${movieDetails.id}')">Remove</button>
+                        <button class="remove-button" onclick="removeFromFavorites('${movieDetails.id}')">Remove</button>
                     </div>
                 `;
                 favoriteMoviesContainer.appendChild(movieCard);
