@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 250 Movies</title>
+    <link rel="stylesheet" href="style.css"> <!-- Include your CSS file here -->
+</head>
+<body>
+    <div id="search-bar-placeholder"></div>
+    <h1 id="Top250-Movies">Top 250 Movies</h1>
+    <div id="top250-movies"></div>
+
+    <script>
+        const apiBaseUrl = "https://api.themoviedb.org/3";
+        const apiKey = "0cbba2de0cef4797f5b50b633a405395"; // Replace with your TMDB API key
+        const imageBaseUrl = 'https://image.tmdb.org/t/p/w300';
+
+        async function fetchTop250Movies() {
+            const moviesPerPage = 20; // Number of movies per page
+            let allMovies = [];
+            let page = 1;
+
+            while (allMovies.length < 250) {
+                const response = await fetch(`${apiBaseUrl}/movie/top_rated?api_key=${apiKey}&language=en-US&page=${page}`);
+                const { results } = await response.json();
+                
+                // Add fetched movies to the array
+                allMovies = [...allMovies, ...results];
+                
+                // Increment page number for the next API call
+                page++;
+            }
+
+            displayTop250Movies(allMovies);
+        }
+
+        function displayTop250Movies(movies) {
+            const top250MoviesContainer = document.getElementById('top250-movies');
+            top250MoviesContainer.innerHTML = movies.map((movie, index) => `
+                <div class="movie-card" onclick="showMovieDetails(${movie.id})">
+                    <img src="${imageBaseUrl}${movie.poster_path}" alt="${movie.title} Poster"/>
+                    <h2>${movie.title}</h2>
+                    <p>Rank: ${index + 1}</p> <!-- Add "Rank: x" -->
+                    <p>Release Date: ${movie.release_date}</p>
+                    <p>Rating: ⭐ ${movie.vote_average}</p>
+                </div>
+            `).join('');
+        }
+
+        function showMovieDetails(movieId) {
+            window.location.href = `movie-details.html?id=${movieId}`;
+        }
+
+        fetchTop250Movies();
+        
+    </script>
+</body>
+</html>

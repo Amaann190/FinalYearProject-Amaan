@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Source Sans Pro', Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .developer {
+            margin-right: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            flex-basis: 200px; /* Set a fixed width for each developer container */
+        }
+        .developer img {
+            width: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 2px solid #f4c518;
+        }
+        .developer p {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="search-bar-placeholder"></div>
+    <div class="container">
+        <h2>About Us</h2>
+        <p>Welcome to MovieDataBase (MDB), your ultimate destination for discovering and exploring movies from all genres! At MDB, we're passionate about movies and dedicated to providing you with the best movie-watching experience. Our platform offers a vast collection of movies, including the latest releases, timeless classics, and everything in between. Whether you're looking for a thrilling action movie, a heartwarming romance, or an intriguing documentary, MDB has something for everyone. With our user-friendly interface and powerful search functionality, finding your favorite movies has never been easier.</p>
+        <div class="developer">
+            <img src="amaan.jpg" alt="Amaan Shaikh">
+            <p>Amaan Shaikh (Front&Back-End Dev) </p>
+        </div>
+        <!-- Add more team members as needed -->
+        <div class="developer">
+            <img src="hanzlah.jpg" alt="Hanzlah Shaikh">
+            <p>Hanzlah Shaikh (Front-End Dev) </p>
+        </div>
+        <div class="developer">
+            <img src="amaan_mullani.jpg" alt="Mullani">
+            <p>Amaan Mullani (Back-End Dev) </p>
+        </div>
+        <div class="developer">
+            <img src="aameen.jpg" alt="Aameen Shaikh">
+            <p>Aameen Shaikh (UI Designer)</p>
+        </div>
+    </div>
+    <script>
+        fetch('search-bar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-bar-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error fetching search bar:', error));
+    </script>
+</body>
+</html>

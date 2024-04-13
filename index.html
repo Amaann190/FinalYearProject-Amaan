@@ -1,32 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"> <!-- Declares the character encoding for the document -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Sets the viewport to the device's width and initial zoom level -->
-    <link rel="stylesheet" href="style.css"> <!-- Links an external CSS file for styling -->
-    <title>MovieDataBase</title> <!-- Sets the title of the HTML document -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>MovieDataBase</title>
 </head>
 <body>
-    <div id="search-bar"> <!-- Defines a container for the search bar -->
-        <h1>MDB</h1> <!-- Displays the title/logo -->
-        <form id="search-form"> <!-- Defines a form for search functionality -->
-            <input type="text" id="search-input" placeholder="Search MovieDataBase"> <!-- Provides an input field for searching -->
+    <div id="search-bar">
+        <h1>MDB</h1>
+        <a href="index.html" class="home-button selected">Home</a>
+        <a href="top250.html" class="top250-button">Top 250 Movies</a>
+        <a href="whymdb.html" class="why-mdb-button">Why MDB?</a>
+        <a href="about-us.html" class="about-us-button" style="margin-right: 10px">About Us</a>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Search MovieDataBase">
         </form>
-        <button class="favorite-button" onclick="redirectToFavorites()" style="margin-left: 10px";> Favorites </button> <!-- Button to redirect to favorites page -->
+        <button class="favorite-button" onclick=" window.location.href = 'favorites.html'" style="margin-left: 10px;">Favorites</button>
     </div>
     <div>
-        <h1 id="category-title">Trending Movies</h1> <!-- Displays a title for the movie category -->
+        <h1 id="category-title">Trending Movies</h1>
     </div>
-     <div id="movies-grid"></div> <!-- Defines a container for displaying movie grid -->
-     <div>
-        <h1 id="tv-category-title">Trending TV Shows and Anime</h1>
+    <div id="movies-grid"></div>
+    <div id="footer">
+        <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
     </div>
-     <div id="tv-series-grid"></div>
-     <div id="footer">
-        <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p> <!-- Footer text -->
-    </div>
-    <script src="script.js"></script> <!-- Links an external JavaScript file -->
+    <script>
+        const apiBaseUrl = "https://api.themoviedb.org/3";
+        const apiKey = "0cbba2de0cef4797f5b50b633a405395";
+        const imageBaseUrl = 'https://image.tmdb.org/t/p/w300';
+
+        const moviesGrid = document.getElementById("movies-grid");
+        const searchInput = document.getElementById("search-input");
+        const searchForm = document.getElementById("search-form");
+        const categoryTitle = document.getElementById("category-title");
+
+        async function fetchMoviesNowPlaying(page = 1) {
+            const response = await fetch(`${apiBaseUrl}/movie/now_playing?api_key=${apiKey}&page=${page}`);
+            const jsonResponse = await response.json();
+            const movies = jsonResponse.results;
+            displayMovies(movies, moviesGrid, true); // Append the new movies to the existing ones
+        }
+
+        async function searchMovies(query) {
+            const response = await fetch(`${apiBaseUrl}/search/movie?api_key=${apiKey}&query=${query}`);
+            const jsonResponse = await response.json();
+            const movies = jsonResponse.results;
+            displayMovies(movies, moviesGrid);
+        }
+
+        // Function to display movies
+        function displayMovies(movies, gridElement, append = false) {
+            const movieCards = movies.map(item => {
+                return `<div class="movie-card" onclick="showMovieDetails(${item.id})">
+                            <img src="${imageBaseUrl}${item.poster_path}" alt="${item.title} Poster"/>
+                            <h1>${item.title}</h1>
+                            <p>Type: Movie</p>
+                            <p>Rating: ⭐ ${item.vote_average}</p>
+                        </div>`;
+            }).join("");
+
+            if (append) {
+                gridElement.innerHTML += movieCards; // Append new movies
+            } else {
+                gridElement.innerHTML = movieCards; // Replace existing movies
+            }
+        }
+
+        function handleSearchFormSubmit(event) {
+            categoryTitle.innerHTML = "Search Results";
+            event.preventDefault();
+            const searchQuery = searchInput.value;
+            searchMovies(searchQuery);
+        }
+
+        searchForm.addEventListener("submit", handleSearchFormSubmit);
+
+        // Function to load more movies on homepage
+        async function loadMoreMovies() {
+            await fetchMoviesNowPlaying(1);
+            await fetchMoviesNowPlaying(2);
+            await fetchMoviesNowPlaying(3);
+            await fetchMoviesNowPlaying(4);
+            await fetchMoviesNowPlaying(5);
+            // Add more if needed
+        }
+
+        // Call function to load more movies when the page loads
+        loadMoreMovies();
+    </script>
 </body>
 </html>
-
-

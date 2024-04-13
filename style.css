@@ -1,78 +1,93 @@
 body {
     background: #121212;
-    margin: 0; 
+    margin: 0;
     padding: 0;
 }
 
 #search-bar {
-    margin-left: 0.8vw;
+    margin-left: 20px;
     display: flex;
     align-items: center;
+    background-color: #1a1a1a; /* Add a background color */
+    padding: 10px; /* Add padding to create space around the search bar */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
 
 #search-bar h1 {
     font-size: 22px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: #f4c518;
-    padding: 5px 8px;
-    border-radius: 2px;
+    color: #f4c518; /* Change text color */
+    margin-right: 10px; /* Add space between the icon and the input */
 }
 
 #search-bar input {
-    margin-left: 10px;
     height: 30px;
-    width: 700px;
-    border: 5px;
+    width: 700px; /* Adjust the width as needed */
+    border: none;
+    background-color: transparent; /* Make the input background transparent */
+    color: white; /* Change text color */
+    font-size: 16px; /* Adjust font size */
+    outline: none; /* Remove outline */
 }
+
+#search-bar input::placeholder {
+    color: lightgray; /* Change placeholder color */
+}
+
+#search-bar input:focus {
+    border: 2px solid #f4c518; /* Add a border when input is focused */
+}
+
 
 #movies-grid,
-#tv-series-grid,
-#favorites-grid { /* Apply the same grid layout to favorites-grid */
+#favorites-grid,
+#top250-movies {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjusted grid columns */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 20px;
     color: white;
-    width: 100%; /* Adjusted width */
-    margin: 2rem 0;
-    margin-left: 0vw;
+    width: calc(100% - 40px); /* Adjust the width as needed */
+    margin: 2rem auto;
 }
 
-.media-card,
-.tv-card,
-.movie-card { /* Apply the same card styles to favorites */
-    background: #1a1a1a; /* Changed background color */
+.movie-card,
+.favorite-card,
+.top250-card {
+    background: #1a1a1a;
     border-radius: 10px;
-    text-align: center; /* Center the content */
+    text-align: center;
+    padding: 20px;
 }
 
-.media-card img,
-.tv-card img,
-.movie-card img { /* Apply the same image styles to favorites */
+.movie-card img,
+.favorite-card img,
+.top250-card img {
     width: 100%;
-    max-height: 300px; /* Limit the height of movie posters */
+    max-height: 300px;
 }
 
-.media-card h1,
-.tv-card h1,
-.movie-card h1 { /* Apply the same title styles to favorites */
-    padding-left: 10px;
+.movie-card h1,
+.favorite-card h1,
+.top250-card h1 {
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
 }
 
-.media-card p,
-.tv-card p,
-.movie-card p { /* Apply the same paragraph styles to favorites */
-    padding-left: 10px;
+.movie-card p,
+.favorite-card p,
+.top250-card p {
     font-family: Arial, Helvetica, sans-serif;
     color: lightgray;
+    margin: 5px 0;
+    text-align: center;
 }
 
 #category-title,
-#tv-category-title,
-#FavoriteMovies { /* Apply the same title styles to favorites */
-    margin-left: 0.8vw;
+#FavoriteMovies,
+#Top250-Movies {
+    margin-left: 20px; /* Adjust margin as needed */
     color: #f4c518;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -80,6 +95,7 @@ body {
 #footer {
     display: flex;
     justify-content: center;
+    margin-top: 20px; /* Add margin to separate footer from content */
 }
 
 #footer img {
@@ -92,7 +108,6 @@ body {
     color: darkgray;
 }
 
-/* Add styles for the favorite button */
 .favorite-button {
     background-color: #f4c518;
     color: black;
@@ -130,4 +145,21 @@ body {
     background-color: #1a1a1a;
 }
 
+.home-button,
+.top250-button,
+.why-mdb-button,
+.about-us-button {
+    color: #f4c518;
+    margin-left: 10px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    transition: color 0.3s;
+}
 
+.home-button:hover,
+.top250-button:hover,
+.why-mdb-button:hover,
+.about-us-button:hover {
+    color: #d3ac16;
+}

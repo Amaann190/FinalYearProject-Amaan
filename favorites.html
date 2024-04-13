@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="search-bar-placeholder"></div>
     <h1 id="FavoriteMovies">Favorite Movies</h1>
     <div id="favorites-grid"></div>
 
@@ -48,6 +49,13 @@
         }
         
         fetchFavoriteMovies();
+
+        fetch('search-bar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-bar-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error fetching search bar:', error));
     </script>
 </body>
 </html>
