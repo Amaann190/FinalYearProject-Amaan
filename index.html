@@ -74,6 +74,10 @@
             searchMovies(searchQuery);
         }
 
+        function showMovieDetails(movieId) {
+            window.location.href = `movie-details.html?id=${movieId}`;
+        }
+
         searchForm.addEventListener("submit", handleSearchFormSubmit);
 
         // Function to load more movies on homepage
