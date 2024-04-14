@@ -27,13 +27,22 @@
                 
                 // Add fetched movies to the array
                 allMovies = [...allMovies, ...results];
-                
+
+                // Break the loop if the total number of movies exceeds or equals 250
+                if (allMovies.length >= 250) {
+                    break;
+                }
+
                 // Increment page number for the next API call
                 page++;
             }
 
+            // Trim the array to contain exactly 250 movies
+            allMovies = allMovies.slice(0, 250);
+
             displayTop250Movies(allMovies);
         }
+
 
         function displayTop250Movies(movies) {
             const top250MoviesContainer = document.getElementById('top250-movies');
