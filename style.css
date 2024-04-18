@@ -8,35 +8,35 @@ body {
     margin-left: 20px;
     display: flex;
     align-items: center;
-    background-color: #1a1a1a; /* Add a background color */
-    padding: 10px; /* Add padding to create space around the search bar */
-    border-radius: 10px; /* Add rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    background-color: #1a1a1a; 
+    padding: 10px; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 #search-bar h1 {
     font-size: 22px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: #f4c518; /* Change text color */
-    margin-right: 10px; /* Add space between the icon and the input */
+    color: #f4c518; 
+    margin-right: 10px; 
 }
 
 #search-bar input {
     height: 30px;
-    width: 700px; /* Adjust the width as needed */
+    width: 700px; 
     border: none;
-    background-color: transparent; /* Make the input background transparent */
-    color: white; /* Change text color */
-    font-size: 16px; /* Adjust font size */
-    outline: none; /* Remove outline */
+    background-color: transparent; 
+    color: white; 
+    font-size: 16px; 
+    outline: none; 
 }
 
 #search-bar input::placeholder {
-    color: lightgray; /* Change placeholder color */
+    color: lightgray; 
 }
 
 #search-bar input:focus {
-    border: 2px solid #f4c518; /* Add a border when input is focused */
+    border: 2px solid #f4c518; 
 }
 
 
@@ -47,7 +47,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 20px;
     color: white;
-    width: calc(100% - 40px); /* Adjust the width as needed */
+    width: calc(100% - 40px); 
     margin: 2rem auto;
 }
 
@@ -87,7 +87,7 @@ body {
 #category-title,
 #FavoriteMovies,
 #Top250-Movies {
-    margin-left: 20px; /* Adjust margin as needed */
+    margin-left: 20px; 
     color: #f4c518;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -95,7 +95,7 @@ body {
 #footer {
     display: flex;
     justify-content: center;
-    margin-top: 20px; /* Add margin to separate footer from content */
+    margin-top: 20px; 
 }
 
 #footer img {

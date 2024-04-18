@@ -49,7 +49,7 @@
             displayMovies(movies, moviesGrid);
         }
 
-        // Function to display movies
+        
         function displayMovies(movies, gridElement, append = false) {
             const movieCards = movies.map(item => {
                 return `<div class="movie-card" onclick="showMovieDetails(${item.id})">
@@ -61,9 +61,9 @@
             }).join("");
 
             if (append) {
-                gridElement.innerHTML += movieCards; // Append new movies
+                gridElement.innerHTML += movieCards; 
             } else {
-                gridElement.innerHTML = movieCards; // Replace existing movies
+                gridElement.innerHTML = movieCards;
             }
         }
 
